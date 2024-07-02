@@ -1,0 +1,30 @@
+import streamlit as st
+import tensorflow as tf
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.models import load_model
+# from tensorflow.python.platform import _pywrap_tf2
+import numpy as np
+
+st.title("Weather Image Classification")
+
+# Load the models
+mobilenet_model = load_model(r'C:\Users\Mene\Desktop\model\model_10-0.59.h5')
+
+
+# Upload image
+uploaded_file = st.file_uploader("Choose an image...", type="jpg")
+
+if uploaded_file is not None:
+    img = image.load_img(uploaded_file, target_size=(224, 224))
+    img_array = image.img_to_array(img) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
+
+    st.image(img, caption='Uploaded Image.', use_column_width=True)
+    st.write("")
+
+    # Make predictions
+    mobilenet_pred = np.argmax(mobilenet_model.predict(img_array), axis=1)[0]
+
+
+    st.write(f"MobileNet Prediction: {mobilenet_pred}")
+
