@@ -9,7 +9,7 @@ import numpy as np
 st.title("Weather Image Classification")
 
 # Load the models
-mobilenet_model = load_model('/content/Model/model_15-0.57.h5')
+mobilenet_model = load_model('model_15-0.57.h5')
 
 
 # Upload image
@@ -25,7 +25,7 @@ if uploaded_file is not None:
 
 
     if st.button('predict'):
-                # Make predictions
+    # Make predictions
         mobilenet_pred = np.argmax(mobilenet_model.predict(img_array), axis=1)[0]
         if mobilenet_pred == 0:
           mobilenet_pred = "Cloudy"
