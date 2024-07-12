@@ -1,5 +1,6 @@
 import streamlit as st
 import tensorflow as tf
+from tensorflow.keras.applications.mobilenet import decode_predictions
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import load_model
 # from tensorflow.python.platform import _pywrap_tf2
@@ -8,7 +9,7 @@ import numpy as np
 st.title("Weather Image Classification")
 
 # Load the models
-mobilenet_model = load_model(r'C:\Users\Mene\Desktop\model\model_10-0.59.h5')
+mobilenet_model = load_model('/content/Model/model_15-0.57.h5')
 
 
 # Upload image
@@ -22,9 +23,22 @@ if uploaded_file is not None:
     st.image(img, caption='Uploaded Image.', use_column_width=True)
     st.write("")
 
-    # Make predictions
-    mobilenet_pred = np.argmax(mobilenet_model.predict(img_array), axis=1)[0]
 
-
-    st.write(f"MobileNet Prediction: {mobilenet_pred}")
-
+    if st.button('predict'):
+                # Make predictions
+        mobilenet_pred = np.argmax(mobilenet_model.predict(img_array), axis=1)[0]
+        if mobilenet_pred == 0:
+          mobilenet_pred = "Cloudy"
+        elif mobilenet_pred == 1:
+          mobilenet_pred = "Lighening"
+        elif mobilenet_pred == 2:
+          mobilenet_pred = "Rain"
+        elif mobilenet_pred == 3:
+          mobilenet_pred = "Fog"
+        elif mobilenet_pred == 4:
+          mobilenet_pred = "Snow"
+        elif mobilenet_pred == 5:
+          mobilenet_pred = "Sunrise"
+        elif mobilenet_pred == 6:
+          mobilenet_pred = "Sunny"
+        st.write(f"MobileNet Prediction: {mobilenet_pred}")
