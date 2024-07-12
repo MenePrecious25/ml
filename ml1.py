@@ -34,7 +34,7 @@ if uploaded_file is not None:
         elif mobilenet_pred == 2:
           mobilenet_pred = "Rain"
         elif mobilenet_pred == 3:
-          mobilenet_pred = "Fog"
+          mobilenet_pred = "Rainbow"
         elif mobilenet_pred == 4:
           mobilenet_pred = "Snow"
         elif mobilenet_pred == 5:
